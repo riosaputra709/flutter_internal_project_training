@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 
 import '../../../common/app_colors.dart';
 import '../../../common/app_responsive.dart';
-import '../../../helper/locator.dart';
-import '../../../helper/navigator_service.dart';
 
-class TabelGridview extends StatefulWidget {
+class MasterCityTableGridview extends StatefulWidget {
   @override
-  _TabelGridviewWidgetState createState() => _TabelGridviewWidgetState();
+  _MasterCityGridviewState createState() => _MasterCityGridviewState();
 }
 
-class _TabelGridviewWidgetState extends State<TabelGridview> {
+class _MasterCityGridviewState extends State<MasterCityTableGridview>  {
+  /*checked*/
   bool isChecked = false;
   Color getColor(Set<MaterialState> states) {
     const Set<MaterialState> interactiveStates = <MaterialState>{
@@ -23,9 +22,11 @@ class _TabelGridviewWidgetState extends State<TabelGridview> {
     }
     return AppColor.borderSide;
   }
+  /*checked*/
 
   @override
   Widget build(BuildContext context) {
+    // TODO: implement build
     return Container(
       decoration: BoxDecoration(
           color: AppColor.white, borderRadius: BorderRadius.circular(20)),
@@ -39,7 +40,6 @@ class _TabelGridviewWidgetState extends State<TabelGridview> {
                 children: [
                   TextButton(
                     onPressed: (){
-                      locator<NavigatorService>().navigateToWithArgmnt("master_parameter_add", 1);
                     },
                     style: TextButton.styleFrom(
                       backgroundColor: Colors.blue,
@@ -127,35 +127,138 @@ class _TabelGridviewWidgetState extends State<TabelGridview> {
                   ),
                 ],
               ),
-              TextButton(
-                onPressed: (){
-                },
-                style: TextButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                ),
-                child: Row(
+              if(MediaQuery.of(context).size.width > 559) //jika tampilan desktop akan muncul
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(2.0),
-                      child: const Text(
-                        "Download",
-                        style: TextStyle(
-                            color: Colors.white
-                        ),
+                    TextButton(
+                      onPressed: (){
+                      },
+                      style: TextButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                      ),
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: const Text(
+                              "Import File",
+                              style: TextStyle(
+                                  color: Colors.white
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: const Icon(
+                              Icons.upload_file,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(2.0),
-                      child: const Icon(
-                        Icons.download,
-                        color: Colors.white,
+                    SizedBox(
+                      width: 8,
+                    ),
+                    TextButton(
+                      onPressed: (){
+                      },
+                      style: TextButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                      ),
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: const Text(
+                              "Download",
+                              style: TextStyle(
+                                  color: Colors.white
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: const Icon(
+                              Icons.download,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
                 ),
-              ),
             ],
           ),
+          SizedBox(
+            height: 12,
+          ),
+          if(MediaQuery.of(context).size.width <= 559)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                TextButton(
+                  onPressed: (){
+                  },
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                  ),
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(2.0),
+                        child: const Text(
+                          "Import File",
+                          style: TextStyle(
+                              color: Colors.white
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(2.0),
+                        child: const Icon(
+                          Icons.upload_file,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: 8,
+                ),
+                TextButton(
+                  onPressed: (){
+                  },
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                  ),
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(2.0),
+                        child: const Text(
+                          "Download",
+                          style: TextStyle(
+                              color: Colors.white
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(2.0),
+                        child: const Icon(
+                          Icons.download,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+
           Divider(
             thickness: 0.5,
             color: Colors.grey,
@@ -183,9 +286,8 @@ class _TabelGridviewWidgetState extends State<TabelGridview> {
                       });
                     },
                   ),
-                  tableHeader("Parameter Code"),
-                  tableHeader("Parameter Name"),
-                  tableHeader("Parameter Detail"),
+                  tableHeader("City Code"),
+                  tableHeader("City Name"),
                   if (!AppResponsive.isMobile(context)) tableHeader("Created By"),
                   if (!AppResponsive.isMobile(context)) tableHeader("Created Date"),
                   if (!AppResponsive.isMobile(context)) tableHeader("Changed By"),
@@ -196,9 +298,8 @@ class _TabelGridviewWidgetState extends State<TabelGridview> {
               /// Table Data
               tableRow(
                 context,
-                parameterCode: "USER_TYPE",
-                parameterName: "User Type",
-                parameterDetail: "Admin, User",
+                cityCode: "32.73",
+                cityName: "Kota Bandung",
                 createdBy: "Rio S",
                 createdDt: "09/09/2022",
                 changedBy: "Rio S",
@@ -206,34 +307,23 @@ class _TabelGridviewWidgetState extends State<TabelGridview> {
               ),
               tableRow(
                 context,
-                parameterCode: "VALUE_TYPE",
-                parameterName: "Value Type",
-                parameterDetail: "String, Integer, Float",
-                createdBy: "Rio S",
-                createdDt: "19/09/2022",
-                changedBy: "Rio S",
-                changedDt: "09/09/2022",
-              ),
-              tableRow(
-                context,
-                parameterCode: "FINANCIAL_TYPE",
-                parameterName: "Financial type of training",
-                parameterDetail: "Free, Pay",
-                createdBy: "Rio S",
-                createdDt: "10/09/2022",
-                changedBy: "Rio S",
-                changedDt: "09/09/2022",
-              ),
-              tableRow(
-                context,
-                parameterCode: "DIFFICULT_LEVEL",
-                parameterName: "Difficult level of training",
-                parameterDetail: "Beginner, Intermediate, Advance",
+                cityCode: "32.17",
+                cityName: "Kabupaten Bandung",
                 createdBy: "Rio S",
                 createdDt: "09/09/2022",
                 changedBy: "Rio S",
                 changedDt: "09/09/2022",
               ),
+              tableRow(
+                context,
+                cityCode: "35.78",
+                cityName: "Kota Surabaya",
+                createdBy: "Rio S",
+                createdDt: "09/09/2022",
+                changedBy: "Rio S",
+                changedDt: "09/09/2022",
+              ),
+
             ],
           ),
           Container(
@@ -292,7 +382,7 @@ class _TabelGridviewWidgetState extends State<TabelGridview> {
     );
   }
 
-  TableRow tableRow(context, {parameterCode, parameterName, parameterDetail,
+  TableRow tableRow(context, {cityCode, cityName,
     createdBy, createdDt, changedBy, changedDt}) {
     return TableRow(
         decoration: BoxDecoration(
@@ -319,15 +409,11 @@ class _TabelGridviewWidgetState extends State<TabelGridview> {
           ),
           Padding(
             padding: const EdgeInsets.all(6.0),
-            child: Text(parameterCode),
+            child: Text(cityCode),
           ),
           Padding(
             padding: const EdgeInsets.all(6.0),
-            child: Text(parameterName),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(6.0),
-            child: Text(parameterDetail),
+            child: Text(cityName),
           ),
           if (!AppResponsive.isMobile(context)) Padding(
             padding: const EdgeInsets.all(6.0),

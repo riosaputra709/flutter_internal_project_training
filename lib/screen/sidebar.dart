@@ -10,62 +10,61 @@ class SideBar extends StatefulWidget {
 }
 
 class _SideBarState extends State<SideBar> {
+  final ScrollController _firstController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
       elevation: 0,
       child: Container(
-        color: AppColor.bgSideMenu,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              child: Text(
-                "MATRIX HR",
-                style: TextStyle(
-                  color: AppColor.yellow,
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            DrawerListTile(
-              title: "Dashboard",
-              icon: "assets/menu_home.png",
-              press: () {},
-            ),
-            DrawerListTile(
-              title: "Recruitment",
-              icon: "assets/menu_recruitment.png",
-              press: () {
-                locator<NavigatorService>().navigateToWithArgmnt("master_parameter", 1);
-              },
-            ),
-            DrawerListTile(
-              title: "Onboarding",
-              icon: "assets/menu_onboarding.png",
-              press: () {},
-            ),
-            DrawerListTile(
-              title: "Reports",
-              icon: "assets/menu_report.png",
-              press: () {},
-            ),
-            DrawerListTile(
-              title: "Calendar",
-              icon: "assets/menu_calendar.png",
-              press: () {},
-            ),
-            DrawerListTile(
-              title: "Settings",
-              icon: "assets/menu_settings.png",
-              press: () {},
-            ),
-            Spacer(),
-            Image.asset("assets/sidebar_image.png")
-          ],
-        ),
+        color: Colors.white,
+        child: Scrollbar(
+          thumbVisibility: true,
+          controller: _firstController,
+          child: ListView(
+            controller: _firstController,
+            children: [
+                Column(
+                  children: [
+                    DrawerListTile(
+                      title: "Parameter",
+                      icon: "",
+                      press: () {
+                        locator<NavigatorService>().navigateToWithArgmnt("master_parameter", 1);
+                      },
+                    ),
+                    DrawerListTile(
+                      title: "City",
+                      icon: "",
+                      press: () {
+                        locator<NavigatorService>().navigateToWithArgmnt("master_city", 1);
+                      },
+                    ),
+                    DrawerListTile(
+                      title: "Onboarding",
+                      icon: "assets/logo_wot.png",
+                      press: () {},
+                    ),
+                    DrawerListTile(
+                      title: "Reports",
+                      icon: "assets/logo_wot.png",
+                      press: () {},
+                    ),
+                    DrawerListTile(
+                      title: "Calendar",
+                      icon: "assets/logo_wot.png",
+                      press: () {},
+                    ),
+                    DrawerListTile(
+                      title: "Settings",
+                      icon: "assets/logo_wot.png",
+                      press: () {},
+                    ),
+                  ],
+              )
+            ],
+          ),
+        )
       ),
     );
   }
@@ -82,14 +81,12 @@ class DrawerListTile extends StatelessWidget {
     return ListTile(
       onTap: press,
       horizontalTitleGap: 0.0,
-      leading: Image.asset(
-        icon,
-        color: AppColor.white,
-        height: 16,
+      leading: Icon(
+        Icons.arrow_circle_right
       ),
       title: Text(
         title,
-        style: TextStyle(color: AppColor.white),
+        style: TextStyle(color: AppColor.black, fontSize: 13),
       ),
     );
   }

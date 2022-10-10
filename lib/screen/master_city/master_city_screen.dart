@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_internal_project_training/screen/widget/header_widget.dart';
-import 'package:flutter_internal_project_training/screen/master_paramater_add/widget/search_criteria_widget.dart';
-import 'package:flutter_internal_project_training/screen/master_paramater_add/widget/table_gridview_widget.dart';
+import 'package:flutter_internal_project_training/screen/master_city/widget/master_city_search_criteria_widget.dart';
+import 'package:flutter_internal_project_training/screen/master_city/widget/master_city_table_gridview_widget.dart';
+import 'package:flutter_internal_project_training/screen/sidebar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../../common/app_responsive.dart';
 import '../../controllers/menu_controller.dart';
-import '../sidebar.dart';
+import '../../helper/locator.dart';
+import '../../helper/navigator_service.dart';
+
 
 void main() {
-  runApp(const MasterParameterAdd());
+  runApp(MasterCity());
 }
 
-class MasterParameterAdd extends StatelessWidget {
-  const MasterParameterAdd({Key? key}) : super(key: key);
+class MasterCity extends StatelessWidget {
+  const MasterCity({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -28,28 +31,27 @@ class MasterParameterAdd extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(create: (context) => MenuController()),
         ],
-        child: MasterParameterAddScreen(title: 'Master Parameter Add Screen',),
+        child: MasterCityScreen(title: 'Master City Screen',),
       ),
     );
   }
 }
 
-class MasterParameterAddScreen extends StatefulWidget {
-  const MasterParameterAddScreen({Key? key, required this.title}) : super(key: key);
+class MasterCityScreen extends StatefulWidget {
+  const MasterCityScreen({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
   @override
-  State<MasterParameterAddScreen> createState() => _MasterParameterAddState();
+  State<MasterCityScreen> createState() => _MasterCityState();
 }
 
-class _MasterParameterAddState extends State<MasterParameterAddScreen> {
+class _MasterCityState extends State<MasterCityScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        /*appBar: AppBar(
+      /*appBar: AppBar(
           title: HeaderWidget(),
-
         ),*/
         drawer: SideBar(),
         key: Provider.of<MenuController>(context, listen: false).scaffoldKey,
@@ -86,7 +88,7 @@ class _MasterParameterAddState extends State<MasterParameterAddScreen> {
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text("Home/ Master/ Parameter/ Add"),
+                                  Text("Home/ Master/ City"),
                                 ],
                               )
                           ),
@@ -100,13 +102,11 @@ class _MasterParameterAddState extends State<MasterParameterAddScreen> {
                                     child: Container(
                                       child: Column(
                                         children: [
-                                          /// Header Part
-                                          //MasterParameterAddHeaderWidget(),
-                                          MasterParameterAddSearchCriteria(),
+                                          MasterCitySearchCriteria(),
                                           SizedBox(
                                             height: 20,
                                           ),
-                                          MasterParameterAddGridview(),
+                                          MasterCityTableGridview(),
                                         ],
                                       ),
                                     ),
@@ -120,10 +120,10 @@ class _MasterParameterAddState extends State<MasterParameterAddScreen> {
                     ),
                   ),
 
+
                 ],
               ),
             )
-
           ],
         )
     );
