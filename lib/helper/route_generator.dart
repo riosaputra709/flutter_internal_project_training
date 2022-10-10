@@ -4,6 +4,7 @@ import 'package:flutter_internal_project_training/main.dart';
 import 'package:flutter_internal_project_training/screen/master_city/master_city_screen.dart';
 import 'package:flutter_internal_project_training/screen/master_parameter/master_parameter_screen.dart';
 
+import '../screen/master_city_import_file/master_city_import_file_screen.dart';
 import '../screen/master_paramater_add/master_parameter_add_screen.dart';
 import 'locator.dart';
 import 'navigator_service.dart';
@@ -17,6 +18,8 @@ class Routegenerator {
         return MaterialPageRoute(builder: (_) => MasterParameterAdd());
       case "master_city":
         return MaterialPageRoute(builder: (_) => MasterCity());
+      case "master_city_import_file":
+        return MaterialPageRoute(builder: (_) => MasterCityImportFile());
       default:
         return _errorRoute();
     }

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_internal_project_training/helper/locator.dart';
+import 'package:flutter_internal_project_training/helper/navigator_service.dart';
 
 import '../../../common/app_colors.dart';
 import '../../../common/app_responsive.dart';
+import 'master_city_popup_add.dart';
 
 class MasterCityTableGridview extends StatefulWidget {
   @override
@@ -39,8 +42,12 @@ class _MasterCityGridviewState extends State<MasterCityTableGridview>  {
               Row (
                 children: [
                   TextButton(
-                    onPressed: (){
-                    },
+                    onPressed: () => showDialog<String>(
+                      context: context,
+                      builder:(ctx) {
+                        return const OptionDialogAddCity();
+                      },
+                    ),
                     style: TextButton.styleFrom(
                       backgroundColor: Colors.blue,
                     ),
@@ -133,6 +140,7 @@ class _MasterCityGridviewState extends State<MasterCityTableGridview>  {
                   children: [
                     TextButton(
                       onPressed: (){
+                        locator<NavigatorService>().navigateTo("master_city_import_file");
                       },
                       style: TextButton.styleFrom(
                         backgroundColor: Colors.blue,
@@ -201,6 +209,7 @@ class _MasterCityGridviewState extends State<MasterCityTableGridview>  {
               children: [
                 TextButton(
                   onPressed: (){
+                    locator<NavigatorService>().navigateTo("master_city_import_file");
                   },
                   style: TextButton.styleFrom(
                     backgroundColor: Colors.blue,

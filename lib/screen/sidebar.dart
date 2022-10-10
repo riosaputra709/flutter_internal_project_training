@@ -40,26 +40,6 @@ class _SideBarState extends State<SideBar> {
                         locator<NavigatorService>().navigateToWithArgmnt("master_city", 1);
                       },
                     ),
-                    DrawerListTile(
-                      title: "Onboarding",
-                      icon: "assets/logo_wot.png",
-                      press: () {},
-                    ),
-                    DrawerListTile(
-                      title: "Reports",
-                      icon: "assets/logo_wot.png",
-                      press: () {},
-                    ),
-                    DrawerListTile(
-                      title: "Calendar",
-                      icon: "assets/logo_wot.png",
-                      press: () {},
-                    ),
-                    DrawerListTile(
-                      title: "Settings",
-                      icon: "assets/logo_wot.png",
-                      press: () {},
-                    ),
                   ],
               )
             ],
