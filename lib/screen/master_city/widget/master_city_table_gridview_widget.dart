@@ -7,6 +7,7 @@ import '../../../common/app_responsive.dart';
 import 'master_city_popup_add.dart';
 
 class MasterCityTableGridview extends StatefulWidget {
+  //final List<CityModel> model;
   @override
   _MasterCityGridviewState createState() => _MasterCityGridviewState();
 }
@@ -45,7 +46,7 @@ class _MasterCityGridviewState extends State<MasterCityTableGridview>  {
                     onPressed: () => showDialog<String>(
                       context: context,
                       builder:(ctx) {
-                        return const OptionDialogAddCity();
+                        return OptionDialogAddCity();
                       },
                     ),
                     style: TextButton.styleFrom(
@@ -314,24 +315,7 @@ class _MasterCityGridviewState extends State<MasterCityTableGridview>  {
                 changedBy: "Rio S",
                 changedDt: "09/09/2022",
               ),
-              tableRow(
-                context,
-                cityCode: "32.17",
-                cityName: "Kabupaten Bandung",
-                createdBy: "Rio S",
-                createdDt: "09/09/2022",
-                changedBy: "Rio S",
-                changedDt: "09/09/2022",
-              ),
-              tableRow(
-                context,
-                cityCode: "35.78",
-                cityName: "Kota Surabaya",
-                createdBy: "Rio S",
-                createdDt: "09/09/2022",
-                changedBy: "Rio S",
-                changedDt: "09/09/2022",
-              ),
+             
 
             ],
           ),
