@@ -8,25 +8,6 @@ class NetworkUtil {
   NetworkUtil.internal();
   factory NetworkUtil() => instance;
 
-  Future<dynamic> postCity(
-    String url, {
-      Map<String, dynamic>? body,
-      Map<String, String>? headers,
-      encoding,
-    }) async {
-    String jsonBody = jsonEncode(body);
-    Map<String, String> headerJson = {
-      "Accept": "*/*",
-      "Content-Type": "application/json",
-    };
-    if(headers != null) {
-      headerJson.addAll(headers);
-    }
-    return await http
-        .post(Uri.parse(url), headers: headerJson, body: jsonBody, encoding: encoding)
-        .then((http.Response response) => _returnResponse(response));
-    }
-
     dynamic _returnResponse(http.Response response) {
       switch (response.statusCode) {
         case 200:
@@ -59,25 +40,43 @@ class NetworkUtil {
       }
     }
 
-  final JsonDecoder _decoder = new JsonDecoder();
-
-  Future<dynamic> getSearchCity(String url, String cityCode, String cityName, int pageNumber, int maxSize ) {
-    String _cityCode = '', _cityName = '';
-    if(cityCode.isNotEmpty){
-      _cityCode = '&cityCode='+cityCode;
+  Future<dynamic> postCity(
+      String url, {
+        Map<String, dynamic>? body,
+        Map<String, String>? headers,
+        encoding,
+      }) async {
+    String jsonBody = jsonEncode(body);
+    Map<String, String> headerJson = {
+      "Accept": "*/*",
+      "Content-Type": "application/json",
+    };
+    if(headers != null) {
+      headerJson.addAll(headers);
     }
-    if(cityName.isNotEmpty){
-      _cityName = '&cityName='+cityName;
-    }
-    return http.get(Uri.parse(url+'?pageNumber='+pageNumber.toString()+'&maxSize='+maxSize.toString()+_cityCode+_cityName
-    )).then((http.Response response) {
-      final String res = response.body;
-      final int statusCode = response.statusCode;
-
-      if (statusCode < 200 || statusCode > 400 || json == null) {
-        throw new Exception("Error while fetching data");
-      }
-      return _decoder.convert(res);
-    });
+    return await http
+        .post(Uri.parse(url), headers: headerJson, body: jsonBody, encoding: encoding)
+        .then((http.Response response) => _returnResponse(response));
   }
+
+  Future<dynamic> getSearchCity(
+      String url, {
+        Map<String, dynamic>? body,
+        Map<String, String>? headers,
+        encoding,
+      }) async {
+    String jsonBody = jsonEncode(body);
+    Map<String, String> headerJson = {
+      "Accept": "*/*",
+      "Content-Type": "application/json",
+    };
+    if(headers != null) {
+      headerJson.addAll(headers);
+    }
+    return await http
+        .post(Uri.parse(url), headers: headerJson, body: jsonBody, encoding: encoding)
+        .then((http.Response response) => _returnResponse(response));
+  }
+
+
 }

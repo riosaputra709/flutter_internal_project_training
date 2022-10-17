@@ -11,14 +11,11 @@ abstract class SampleEvent {}
 }*/
 
 class SearchCity extends SampleEvent {
-  final String cityCode;
-  final String cityName;
-  final int pageNumber;
-  final int maxPage;
-  SearchCity(this.cityCode, this.cityName, this.pageNumber, this.maxPage);
+  final CityModelRequest modelRequest;
+  SearchCity(this.modelRequest);
 }
 
 class CreateCity extends SampleEvent {
-  final RequestCityModel model;
+  final CityModelRequest model;
   CreateCity(this.model);
 }

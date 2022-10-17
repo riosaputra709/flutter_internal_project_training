@@ -26,11 +26,11 @@ class RestApi extends UrlAPI {
     });
   }
 
-  Future<dynamic> ListCities1(String city_code, String city_name, int page_number, int max_size) {
+  Future<dynamic> ListCities({Map<String, dynamic>? body}) {
     return util
         .getSearchCity(
       baseUrl + "/city/search",
-        city_code, city_name, page_number, max_size
+      body: body,
     )
         .then((value) {
       return value;

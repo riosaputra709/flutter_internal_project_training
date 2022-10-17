@@ -13,13 +13,8 @@ class SampleErrorState extends SampleState{
 }
 
 class GetCitiesSuccess extends SampleState {
-  final List<CityModel> cities;
+  final BaseListResponse<CityModelResponse> cities;
   GetCitiesSuccess(this.cities);
-}
-
-class GetCitiesSuccess1 extends SampleState {
-  final List<CityModel> cities;
-  GetCitiesSuccess1(this.cities);
 }
 
 class CreateCitySuccess extends SampleState {
