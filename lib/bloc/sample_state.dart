@@ -18,8 +18,8 @@ class GetCitiesSuccess extends SampleState {
 }
 
 class CreateCitySuccess extends SampleState {
-  final String? city_code;
-  CreateCitySuccess(this.city_code);
+  final BaseListResponse<CityModelResponse> cities;
+  CreateCitySuccess(this.cities);
 }
 
 

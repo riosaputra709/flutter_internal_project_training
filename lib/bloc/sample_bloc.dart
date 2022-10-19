@@ -22,8 +22,8 @@ class SampleBloc extends Bloc<SampleEvent, SampleState> {
           emit(GetCitiesSuccess(getData));
         }
         else if (event is CreateCity) {
-          String? id = await createCity(event.model);
-          emit(CreateCitySuccess(id));
+          BaseListResponse<CityModelResponse>? getData = await createCity(event.model);
+          emit(CreateCitySuccess(getData));
         }
       }
       catch (e) {
@@ -54,13 +54,15 @@ class SampleBloc extends Bloc<SampleEvent, SampleState> {
   }
 
 
-  Future<String?> createCity(CityModelRequest model) async {
+  Future<BaseListResponse<CityModelResponse>> createCity(CityModelRequest model) async {
     var response = await api.createCity(
       body: model.toMapCreateCity(), //kirim ke API
     ) as Map<String, dynamic>;
-    CityModelResponse newCity = CityModelResponse.fromJson(response); //terima response dari API
-
-    return newCity.city_code;
+    var baseListResponse = BaseListResponse<CityModelResponse>.fromJson_AddCity(response, (data) {
+      List<CityModelResponse> city = data.map((e) => CityModelResponse.fromJson_AddCity(e)).toList();
+      return city;
+    });
+    return baseListResponse;
   }
 
 }

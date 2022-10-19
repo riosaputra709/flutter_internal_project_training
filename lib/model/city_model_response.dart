@@ -17,4 +17,13 @@ class CityModelResponse {
       ,changed_date: json["updateTime"]!=null ? json["updateTime"].toString() : '');
   }
 
+  factory CityModelResponse.fromJson_AddCity(Map<String, dynamic>json){
+    return CityModelResponse(
+        city_code: json["cityCode"].toString()
+        ,city_name: json["cityName"].toString()
+        ,created_by: json["createdBy"].toString()
+        ,created_date: json["createdTime"].toString()
+        ,changed_by: json["updateBy"]!=null ? json["updateBy"].toString() :  ''
+        ,changed_date: json["updateTime"]!=null ? json["updateTime"].toString() : '');
+  }
 }

@@ -47,6 +47,8 @@ class NetworkUtil {
         encoding,
       }) async {
     String jsonBody = jsonEncode(body);
+    List<String> listBody = [];
+    listBody.add(jsonBody);
     Map<String, String> headerJson = {
       "Accept": "*/*",
       "Content-Type": "application/json",
@@ -55,7 +57,7 @@ class NetworkUtil {
       headerJson.addAll(headers);
     }
     return await http
-        .post(Uri.parse(url), headers: headerJson, body: jsonBody, encoding: encoding)
+        .post(Uri.parse(url), headers: headerJson, body: listBody.toString(), encoding: encoding)
         .then((http.Response response) => _returnResponse(response));
   }
 

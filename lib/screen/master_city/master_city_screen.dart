@@ -56,10 +56,6 @@ class _MasterCityState extends State<MasterCityScreen> {
 
   @override
   void initState() {
-    cityModelRequest.page_size = '';
-    cityModelRequest.page_no = '';
-    cityModelRequest.city_code = '';
-    cityModelRequest.city_name = '';
     bloc = BlocProvider.of<SampleBloc>(context);
     bloc.add(SearchCity(cityModelRequest));
     super.initState();
@@ -84,12 +80,13 @@ class _MasterCityState extends State<MasterCityScreen> {
               ..showSnackBar(SnackBar(
                   duration: const Duration(seconds: 5),
                   content: Text(
-                    "berhasil create ${state.city_code}",
+                    "berhasil menyimpan ${state.cities.list_data?.length} data",
                     style: const TextStyle(
                       color: Colors.white,
                     ),
                   ),
                   backgroundColor: Colors.green));
+            bloc.add(SearchCity(cityModelRequest));
           }
           if (state is SampleErrorState) {
             ScaffoldMessenger.of(context)

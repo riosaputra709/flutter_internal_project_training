@@ -1,3 +1,3 @@
 class UrlAPI {
-  final baseUrl = "http://192.168.0.234:9003/school/v1";
+  final baseUrl = "http://localhost:9003/school/v1";
 }
