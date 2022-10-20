@@ -25,6 +25,11 @@ class _MasterCityGridviewState extends State<MasterCityTableGridview>  {
 
   bool isChecked = false;
 
+  late Map<String, bool> List2 = {
+    for(int i = 0; i < widget.model.length; i++)
+      widget.model[i].city_code! +";"+ widget.model[i].city_name! : false
+  };
+
   @override
   Widget build(BuildContext context) {
 
@@ -134,8 +139,7 @@ class _MasterCityGridviewState extends State<MasterCityTableGridview>  {
                     width: 12,
                   ),
                   TextButton(
-                    onPressed: (){
-                    },
+                    onPressed: (){ removeAllCheckItems(); },
                     style: TextButton.styleFrom(
                       backgroundColor: Colors.blue,
                     ),
@@ -229,9 +233,8 @@ class _MasterCityGridviewState extends State<MasterCityTableGridview>  {
             ],
           ),
 
-          SizedBox(
-            height: 12,
-          ),
+          SizedBox(height: 12,),
+
           if(MediaQuery.of(context).size.width <= 559)
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -364,10 +367,10 @@ class _MasterCityGridviewState extends State<MasterCityTableGridview>  {
                       child: Checkbox(
                         checkColor: Colors.white,
                         fillColor: MaterialStateProperty.resolveWith(getColor),
-                        value: isChecked,
+                        value: List2[widget.model[index].city_code! +";"+ widget.model[index].city_name!],
                         onChanged: (bool? value) {
                           setState(() {
-                            isChecked = value!;
+                            List2[widget.model[index].city_code! +";"+ widget.model[index].city_name!] = value!;
                           });
                         },
                       ),
@@ -475,6 +478,28 @@ class _MasterCityGridviewState extends State<MasterCityTableGridview>  {
         ],
       ),
     );
+  }
+
+  void removeAllCheckItems() {
+    var holder_1 = [];
+    List2.forEach((key, value) {
+      splited = key.split(';');
+      if (value == true) {
+        holder_1.add(splited[0]);
+      }
+    });
+    holder_1.forEach((element) {
+      setState(() {
+
+        bloc.add(DeleteCity(element));
+
+      });
+    });
+
+    holder_1.clear();
+
+
+
   }
 
 }

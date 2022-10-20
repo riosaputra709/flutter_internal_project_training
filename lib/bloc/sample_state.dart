@@ -22,4 +22,14 @@ class CreateCitySuccess extends SampleState {
   CreateCitySuccess(this.cities);
 }
 
+class DeleteCitySuccess extends SampleState {
+  final BaseListResponse<CityModelResponse> cities;
+  DeleteCitySuccess(this.cities);
+}
+
+class DeleteCitySuccess1 extends SampleState {
+  final String message;
+  DeleteCitySuccess1(this.message);
+}
+
 

@@ -19,3 +19,8 @@ class CreateCity extends SampleEvent {
   final CityModelRequest model;
   CreateCity(this.model);
 }
+
+class DeleteCity extends SampleEvent {
+  String cityCode;
+  DeleteCity(this.cityCode);
+}

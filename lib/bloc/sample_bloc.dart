@@ -25,21 +25,18 @@ class SampleBloc extends Bloc<SampleEvent, SampleState> {
           BaseListResponse<CityModelResponse>? getData = await createCity(event.model);
           emit(CreateCitySuccess(getData));
         }
+        else if (event is DeleteCity) {
+          /*BaseListResponse<CityModelResponse>? getData = await deleteCity(event.cityCode);
+          emit(DeleteCitySuccess(getData));*/
+          String? getData = await deleteCity1(event.cityCode);
+          emit(DeleteCitySuccess1(getData!));
+        }
       }
       catch (e) {
         emit(SampleErrorState(e.toString()));
       }
     });
   }
-
-  /*Future<String?> create(UserModel model) async {
-    var response = await api.create(
-      body: model.toMap(), //kirim ke API
-    ) as Map<String, dynamic>;
-    UserModel newUser = UserModel.map(response); //terima response dari API
-
-    return newUser.id;
-  }*/
 
   Future<BaseListResponse<CityModelResponse>> searchCities(CityModelRequest modelRequest) async {
     dynamic response = await api.ListCities(
@@ -63,6 +60,22 @@ class SampleBloc extends Bloc<SampleEvent, SampleState> {
       return city;
     });
     return baseListResponse;
+  }
+
+  Future<BaseListResponse<CityModelResponse>> deleteCity(String cityCode) async {
+    dynamic response = await api.deleteCity(cityCode);
+    var baseListResponse = BaseListResponse<CityModelResponse>.fromJson_DeleteCity(response, (data) {
+      List<CityModelResponse> city = data.map((e) => CityModelResponse.fromJson_DeleteCity(e)).toList();
+      return city;
+    });
+    return baseListResponse;
+  }
+
+  Future<String?> deleteCity1(String cityCode) async {
+    var response = await api.deleteCity(cityCode);
+    BaseListResponse bsr = BaseListResponse.map(response); //terima response dari API
+
+    return bsr.message;
   }
 
 }
