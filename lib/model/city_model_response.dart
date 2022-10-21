@@ -19,7 +19,7 @@ class CityModelResponse {
       ,is_checked: false);
   }
 
-  factory CityModelResponse.fromJson_AddCity(Map<String, dynamic>json){
+  factory CityModelResponse.fromJson_AddEditCity(Map<String, dynamic>json){
     return CityModelResponse(
         city_code: json["cityCode"].toString()
         ,city_name: json["cityName"].toString()

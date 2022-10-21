@@ -20,6 +20,11 @@ class CreateCity extends SampleEvent {
   CreateCity(this.model);
 }
 
+class EditCity extends SampleEvent {
+  final CityModelRequest model;
+  EditCity(this.model);
+}
+
 class DeleteCity extends SampleEvent {
   String cityCode;
   DeleteCity(this.cityCode);

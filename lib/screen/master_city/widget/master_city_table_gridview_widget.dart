@@ -8,6 +8,7 @@ import 'package:flutter_internal_project_training/model/city_model_response.dart
 import '../../../bloc/sample_bloc.dart';
 import '../../../common/app_colors.dart';
 import 'master_city_popup_add.dart';
+import 'master_city_popup_edit.dart';
 
 class MasterCityTableGridview extends StatefulWidget {
   final List<CityModelResponse> model;
@@ -73,10 +74,13 @@ class _MasterCityGridviewState extends State<MasterCityTableGridview>  {
                               return OptionDialogAddCity();
                             },
                           ).then((value) => {
-                            splited = value?.split(','),
-                            model1.city_code = splited[0],
-                            model1.city_name = splited[1],
-                            bloc.add(CreateCity(model1))
+                            if(value != null){
+                              splited = value.split(','),
+                              model1.city_code = splited[0],
+                              model1.city_name = splited[1],
+                              bloc.add(CreateCity(model1))
+                            }
+
                           }),
                           style: TextButton.styleFrom(
                             backgroundColor: Colors.blue,
@@ -109,8 +113,7 @@ class _MasterCityGridviewState extends State<MasterCityTableGridview>  {
                     width: 12,
                   ),
                   TextButton(
-                    onPressed: (){
-                    },
+                    onPressed: () => editCheckItem(),
                     style: TextButton.styleFrom(
                       backgroundColor: Colors.blue,
                     ),
@@ -490,16 +493,66 @@ class _MasterCityGridviewState extends State<MasterCityTableGridview>  {
     });
     holder_1.forEach((element) {
       setState(() {
-
         bloc.add(DeleteCity(element));
-
       });
     });
-
     holder_1.clear();
 
-
-
   }
+
+  void editCheckItem() {
+    var holder_1 = [];
+    List2.forEach((key, value) {
+      if (value == true) {
+        holder_1.add(key);
+      }
+    });
+    if(holder_1.length == 1) {
+      splited = holder_1[0].toString().split(';');
+      String cityCode = splited[0];
+      String cityName = splited[1];
+      showDialog<String>(
+        context: context,
+        builder:(ctx) {
+          return OptionDialogEditCity(cityCode : cityCode, cityName: cityName,);
+        },
+      ).then((value) => {
+        if(value != null){
+          splited = value.split(','),
+          model1.city_code = splited[0],
+          model1.city_name = splited[1],
+          bloc.add(EditCity(model1))
+        }
+      });
+    }
+    else if (holder_1.length < 1){
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(SnackBar(
+            duration: const Duration(seconds: 5),
+            content: Text(
+              "pilih 1 data",
+              style: const TextStyle(
+                color: Colors.white,
+              ),
+            ),
+            backgroundColor: Colors.red));
+    }
+    else {
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(SnackBar(
+            duration: const Duration(seconds: 5),
+            content: Text(
+              "hanya dapat memilih 1 data",
+              style: const TextStyle(
+                color: Colors.white,
+              ),
+            ),
+            backgroundColor: Colors.red));
+    }
+    holder_1.clear();
+  }
+
 
 }

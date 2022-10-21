@@ -23,7 +23,7 @@ class BaseListResponse<T> {
         list_data: build(json["listData"]));
   }
 
-  factory BaseListResponse.fromJson_AddCity(Map<String, dynamic>json, Function(List<dynamic>)build) {
+  factory BaseListResponse.fromJson_AddEditCity(Map<String, dynamic>json, Function(List<dynamic>)build) {
     return BaseListResponse<T>(
         list_data: build(json["data"]));
   }

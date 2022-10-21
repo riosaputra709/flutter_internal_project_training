@@ -61,6 +61,27 @@ class NetworkUtil {
         .then((http.Response response) => _returnResponse(response));
   }
 
+  Future<dynamic> putCity(
+      String url, {
+        Map<String, dynamic>? body,
+        Map<String, String>? headers,
+        encoding,
+      }) async {
+    String jsonBody = jsonEncode(body);
+    List<String> listBody = [];
+    listBody.add(jsonBody);
+    Map<String, String> headerJson = {
+      "Accept": "*/*",
+      "Content-Type": "application/json",
+    };
+    if(headers != null) {
+      headerJson.addAll(headers);
+    }
+    return await http
+        .put(Uri.parse(url), headers: headerJson, body: listBody.toString(), encoding: encoding)
+        .then((http.Response response) => _returnResponse(response));
+  }
+
   Future<dynamic> post(
       String url, {
         Map<String, dynamic>? body,

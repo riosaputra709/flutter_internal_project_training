@@ -88,6 +88,20 @@ class _MasterCityState extends State<MasterCityScreen> {
                   backgroundColor: Colors.green));
             bloc.add(SearchCity(cityModelRequest));
           }
+          if(state is EditCitySuccess) {
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(SnackBar(
+                  duration: const Duration(seconds: 5),
+                  content: Text(
+                    "berhasil mengubah ${state.cities.list_data?.length} data",
+                    style: const TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  backgroundColor: Colors.green));
+            bloc.add(SearchCity(cityModelRequest));
+          }
           if(state is DeleteCitySuccess1) {
             ScaffoldMessenger.of(context)
               ..hideCurrentSnackBar()

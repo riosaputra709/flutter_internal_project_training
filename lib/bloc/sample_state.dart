@@ -22,6 +22,11 @@ class CreateCitySuccess extends SampleState {
   CreateCitySuccess(this.cities);
 }
 
+class EditCitySuccess extends SampleState {
+  final BaseListResponse<CityModelResponse> cities;
+  EditCitySuccess(this.cities);
+}
+
 class DeleteCitySuccess extends SampleState {
   final BaseListResponse<CityModelResponse> cities;
   DeleteCitySuccess(this.cities);

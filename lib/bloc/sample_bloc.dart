@@ -25,6 +25,10 @@ class SampleBloc extends Bloc<SampleEvent, SampleState> {
           BaseListResponse<CityModelResponse>? getData = await createCity(event.model);
           emit(CreateCitySuccess(getData));
         }
+        else if (event is EditCity) {
+          BaseListResponse<CityModelResponse>? getData = await editCity(event.model);
+          emit(EditCitySuccess(getData));
+        }
         else if (event is DeleteCity) {
           /*BaseListResponse<CityModelResponse>? getData = await deleteCity(event.cityCode);
           emit(DeleteCitySuccess(getData));*/
@@ -55,8 +59,19 @@ class SampleBloc extends Bloc<SampleEvent, SampleState> {
     var response = await api.createCity(
       body: model.toMapCreateCity(), //kirim ke API
     ) as Map<String, dynamic>;
-    var baseListResponse = BaseListResponse<CityModelResponse>.fromJson_AddCity(response, (data) {
-      List<CityModelResponse> city = data.map((e) => CityModelResponse.fromJson_AddCity(e)).toList();
+    var baseListResponse = BaseListResponse<CityModelResponse>.fromJson_AddEditCity(response, (data) {
+      List<CityModelResponse> city = data.map((e) => CityModelResponse.fromJson_AddEditCity(e)).toList();
+      return city;
+    });
+    return baseListResponse;
+  }
+
+  Future<BaseListResponse<CityModelResponse>> editCity(CityModelRequest model) async {
+    var response = await api.editCity(
+      body: model.toMapCreateCity(), //kirim ke API
+    ) as Map<String, dynamic>;
+    var baseListResponse = BaseListResponse<CityModelResponse>.fromJson_AddEditCity(response, (data) {
+      List<CityModelResponse> city = data.map((e) => CityModelResponse.fromJson_AddEditCity(e)).toList();
       return city;
     });
     return baseListResponse;
