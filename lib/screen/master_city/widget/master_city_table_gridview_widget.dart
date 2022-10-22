@@ -12,17 +12,18 @@ import 'master_city_popup_edit.dart';
 
 class MasterCityTableGridview extends StatefulWidget {
   final List<CityModelResponse> model;
+  final CityModelRequest model1;
   final BaseListResponse baseListResponseModel;
 
-  const MasterCityTableGridview({super.key, required this.model, required this.baseListResponseModel});
+  const MasterCityTableGridview({super.key, required this.model, required this.baseListResponseModel, required this.model1});
   @override
   _MasterCityGridviewState createState() => _MasterCityGridviewState();
 }
 
 class _MasterCityGridviewState extends State<MasterCityTableGridview>  {
-  CityModelRequest model1 = CityModelRequest();
   late SampleBloc bloc;
   var splited;
+  String? fileExtension;
 
   bool isChecked = false;
 
@@ -76,9 +77,9 @@ class _MasterCityGridviewState extends State<MasterCityTableGridview>  {
                           ).then((value) => {
                             if(value != null){
                               splited = value.split(','),
-                              model1.city_code = splited[0],
-                              model1.city_name = splited[1],
-                              bloc.add(CreateCity(model1))
+                              widget.model1.city_code = splited[0],
+                              widget.model1.city_name = splited[1],
+                              bloc.add(CreateCity(widget.model1))
                             }
 
                           }),
@@ -206,6 +207,7 @@ class _MasterCityGridviewState extends State<MasterCityTableGridview>  {
                     ),
                     TextButton(
                       onPressed: (){
+                        downloadOnPressed();
                       },
                       style: TextButton.styleFrom(
                         backgroundColor: Colors.blue,
@@ -275,6 +277,7 @@ class _MasterCityGridviewState extends State<MasterCityTableGridview>  {
                 ),
                 TextButton(
                   onPressed: (){
+                    downloadOnPressed();
                   },
                   style: TextButton.styleFrom(
                     backgroundColor: Colors.blue,
@@ -491,11 +494,26 @@ class _MasterCityGridviewState extends State<MasterCityTableGridview>  {
         holder_1.add(splited[0]);
       }
     });
-    holder_1.forEach((element) {
-      setState(() {
-        bloc.add(DeleteCity(element));
+    if(holder_1.length != 0){
+      holder_1.forEach((element) {
+        setState(() {
+          bloc.add(DeleteCity(element));
+        });
       });
-    });
+    } else {
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(SnackBar(
+            duration: const Duration(seconds: 5),
+            content: Text(
+              "pilih data yang akan dihapus",
+              style: const TextStyle(
+                color: Colors.white,
+              ),
+            ),
+            backgroundColor: Colors.red));
+    }
+
     holder_1.clear();
 
   }
@@ -519,9 +537,9 @@ class _MasterCityGridviewState extends State<MasterCityTableGridview>  {
       ).then((value) => {
         if(value != null){
           splited = value.split(','),
-          model1.city_code = splited[0],
-          model1.city_name = splited[1],
-          bloc.add(EditCity(model1))
+          widget.model1.city_code = splited[0],
+          widget.model1.city_name = splited[1],
+          bloc.add(EditCity(widget.model1))
         }
       });
     }
@@ -552,6 +570,14 @@ class _MasterCityGridviewState extends State<MasterCityTableGridview>  {
             backgroundColor: Colors.red));
     }
     holder_1.clear();
+  }
+
+  void downloadOnPressed() {
+    fileExtension = 'xlsx';
+    List<String> listCityCode = [];
+    listCityCode.add(widget.model1.city_code.toString());
+
+    bloc.add(DownloadCity(fileExtension!, listCityCode));
   }
 
 

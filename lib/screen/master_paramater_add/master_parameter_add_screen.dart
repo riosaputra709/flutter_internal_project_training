@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../../common/app_responsive.dart';
 import '../../controllers/menu_controller.dart';
-import '../sidebar.dart';
+import '../widget/sidebar.dart';
 
 void main() {
   runApp(const MasterParameterAdd());

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_internal_project_training/screen/master_city_import_file/widget/master_city_import_file_dropzone.dart';
 import 'package:flutter_internal_project_training/screen/widget/header_widget.dart';
-import 'package:flutter_internal_project_training/screen/sidebar.dart';
+import 'package:flutter_internal_project_training/screen/widget/sidebar.dart';
 import 'package:provider/provider.dart';
 
 import '../../common/app_responsive.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_internal_project_training/screen/widget/header_widget.dart';
 import 'package:flutter_internal_project_training/screen/master_parameter/widget/search_criteria_widget.dart';
 import 'package:flutter_internal_project_training/screen/master_parameter/widget/table_gridview_widget.dart';
-import 'package:flutter_internal_project_training/screen/sidebar.dart';
+import 'package:flutter_internal_project_training/screen/widget/sidebar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 

@@ -35,6 +35,10 @@ class SampleBloc extends Bloc<SampleEvent, SampleState> {
           String? getData = await deleteCity1(event.cityCode);
           emit(DeleteCitySuccess1(getData!));
         }
+        else if (event is DownloadCity) {
+          String? getData = await downloadCity(event.extention, event.cityCd);
+          emit(DownloadCitySuccess(getData!));
+        }
       }
       catch (e) {
         emit(SampleErrorState(e.toString()));
@@ -92,5 +96,23 @@ class SampleBloc extends Bloc<SampleEvent, SampleState> {
 
     return bsr.message;
   }
+
+  /*download [start]*/
+  Future<String?> downloadCity(String extension, List<String> cc) async {
+    var response = await api.downloadCity(
+      body: toMapDownloadCity(extension, cc), //kirim ke API
+    ) as Map<String, dynamic>;
+    BaseListResponse bsr = BaseListResponse.map(response); //terima response dari API
+
+    return bsr.message;
+  }
+
+  Map<String, dynamic> toMapDownloadCity(String extension, List<String> cc) {
+    final Map<String, dynamic> data = {};
+    data['cityCode'] = cc == null? '' : cc;
+    data['extension'] = extension == null? '' : extension.toString();
+    return data;
+  }
+  /*download [end]*/
 
 }

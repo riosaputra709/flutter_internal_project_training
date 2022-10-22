@@ -37,4 +37,9 @@ class DeleteCitySuccess1 extends SampleState {
   DeleteCitySuccess1(this.message);
 }
 
+class DownloadCitySuccess extends SampleState {
+  final String message;
+  DownloadCitySuccess(this.message);
+}
+
 

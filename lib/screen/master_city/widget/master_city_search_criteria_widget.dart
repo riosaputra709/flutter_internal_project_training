@@ -6,22 +6,22 @@ import '../../../model/base_list_response.dart';
 
 class MasterCitySearchCriteria extends StatefulWidget {
   final BaseListResponse baseListResponseModel;
+  final CityModelRequest cityReq;
 
-  const MasterCitySearchCriteria({super.key, required this.baseListResponseModel});
+  const MasterCitySearchCriteria({super.key, required this.baseListResponseModel, required this.cityReq});
 
   @override
   _MasterCitySearchCriteriaState createState() => _MasterCitySearchCriteriaState();
 }
 
 class _MasterCitySearchCriteriaState extends State<MasterCitySearchCriteria>  {
-  CityModelRequest model = new CityModelRequest();
   static GlobalKey<FormState> key = GlobalKey<FormState>();
   late SampleBloc bloc;
 
   @override
   Widget build(BuildContext context) {
-    model.page_size = widget.baseListResponseModel.page_size;
-    model.page_no = widget.baseListResponseModel.page_no;
+    widget.cityReq.page_size = widget.baseListResponseModel.page_size;
+    widget.cityReq.page_no = widget.baseListResponseModel.page_no;
     bloc = BlocProvider.of<SampleBloc>(context);
     return Container(
       decoration: BoxDecoration(
@@ -82,7 +82,7 @@ class _MasterCitySearchCriteriaState extends State<MasterCitySearchCriteria>  {
                               ),
                             ),
                             onChanged: (value) {
-                              model.city_code = value;
+                              widget.cityReq.city_code = value;
                             },
                           ),
                         ],
@@ -136,7 +136,7 @@ class _MasterCitySearchCriteriaState extends State<MasterCitySearchCriteria>  {
                               ),
                             ),
                             onChanged: (value) {
-                              model.city_name = value;
+                              widget.cityReq.city_name = value;
                             },
                           ),
                         ],
@@ -152,7 +152,7 @@ class _MasterCitySearchCriteriaState extends State<MasterCitySearchCriteria>  {
                           children: [
                             TextButton(
                               onPressed: (){
-                                bloc.add(SearchCity(model));
+                                bloc.add(SearchCity(widget.cityReq));
                               },
                               style: TextButton.styleFrom(
                                 backgroundColor: Colors.blue,

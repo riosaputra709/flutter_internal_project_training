@@ -29,3 +29,9 @@ class DeleteCity extends SampleEvent {
   String cityCode;
   DeleteCity(this.cityCode);
 }
+
+class DownloadCity extends SampleEvent {
+  final String extention;
+  final List<String> cityCd;
+  DownloadCity(this.extention, this.cityCd);
+}

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_internal_project_training/screen/master_city/widget/master_city_search_criteria_widget.dart';
 import 'package:flutter_internal_project_training/screen/master_city/widget/master_city_table_gridview_widget.dart';
 import 'package:flutter_internal_project_training/screen/widget/header_widget.dart';
-import 'package:flutter_internal_project_training/screen/sidebar.dart';
+import 'package:flutter_internal_project_training/screen/widget/sidebar.dart';
 import 'package:provider/provider.dart';
 import '../../bloc/sample_bloc.dart';
 import '../../common/app_responsive.dart';
@@ -66,6 +66,7 @@ class _MasterCityState extends State<MasterCityScreen> {
     return BlocListener<SampleBloc, SampleState>(
         listener: (context, state) {
           if(state is GetCitiesSuccess) {
+            clearModel();
             arrayCity.clear();
             arrayCity.addAll(state.cities.list_data!);
             baseListResponseModel.page_no = state.cities.page_no;
@@ -86,6 +87,7 @@ class _MasterCityState extends State<MasterCityScreen> {
                     ),
                   ),
                   backgroundColor: Colors.green));
+            clearModel();
             bloc.add(SearchCity(cityModelRequest));
           }
           if(state is EditCitySuccess) {
@@ -100,6 +102,7 @@ class _MasterCityState extends State<MasterCityScreen> {
                     ),
                   ),
                   backgroundColor: Colors.green));
+            clearModel();
             bloc.add(SearchCity(cityModelRequest));
           }
           if(state is DeleteCitySuccess1) {
@@ -114,6 +117,22 @@ class _MasterCityState extends State<MasterCityScreen> {
                     ),
                   ),
                   backgroundColor: Colors.green));
+            clearModel();
+            bloc.add(SearchCity(cityModelRequest));
+          }
+          if(state is DownloadCitySuccess) {
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(SnackBar(
+                  duration: const Duration(seconds: 5),
+                  content: Text(
+                    "berhasil mendownload data : ${state.message}",
+                    style: const TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  backgroundColor: Colors.green));
+            clearModel();
             bloc.add(SearchCity(cityModelRequest));
           }
           if (state is SampleErrorState) {
@@ -195,11 +214,11 @@ class _MasterCityState extends State<MasterCityScreen> {
                                                 child: Container(
                                                   child: Column(
                                                     children: [
-                                                      MasterCitySearchCriteria(baseListResponseModel: baseListResponseModel,),
+                                                      MasterCitySearchCriteria(baseListResponseModel: baseListResponseModel,cityReq: cityModelRequest,),
                                                       SizedBox(
                                                         height: 20,
                                                       ),
-                                                      MasterCityTableGridview(model: arrayCity,baseListResponseModel: baseListResponseModel),
+                                                      MasterCityTableGridview(model: arrayCity,baseListResponseModel: baseListResponseModel, model1: cityModelRequest,),
                                                     ],
                                                   ),
                                                 ),
@@ -226,5 +245,10 @@ class _MasterCityState extends State<MasterCityScreen> {
 
         )
     );
+  }
+
+  void clearModel() {
+    cityModelRequest.city_code = '';
+    cityModelRequest.city_name = '';
   }
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../helper/locator.dart';
-import '../../helper/navigator_service.dart';
-import '../common/app_colors.dart';
+import '../../../helper/locator.dart';
+import '../../../helper/navigator_service.dart';
+import '../../common/app_colors.dart';
 
 class SideBar extends StatefulWidget {
   @override
