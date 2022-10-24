@@ -476,7 +476,11 @@ class _MasterCityGridviewState extends State<MasterCityTableGridview>  {
                 Row(
                   children: [
                     OutlinedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        int pg_no = int.parse(widget.baseListResponseModel.page_no!) - 1;
+                        widget.model1.page_no = pg_no.toString();
+                        bloc.add(SearchCity(widget.model1));
+                      },
                       child: Text(
                         "<",
                       ),
@@ -491,7 +495,11 @@ class _MasterCityGridviewState extends State<MasterCityTableGridview>  {
                     ),
 
                     OutlinedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        int pg_no = int.parse(widget.baseListResponseModel.page_no!) + 1;
+                        widget.model1.page_no = pg_no.toString();
+                        bloc.add(SearchCity(widget.model1));
+                      },
                       child: Text(
                         ">",
                       ),
