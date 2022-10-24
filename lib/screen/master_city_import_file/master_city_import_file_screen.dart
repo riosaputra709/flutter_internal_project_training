@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_internal_project_training/screen/master_city_import_file/widget/dropped_file_widget.dart';
 import 'package:flutter_internal_project_training/screen/master_city_import_file/widget/master_city_import_file_dropzone.dart';
 import 'package:flutter_internal_project_training/screen/widget/header_widget.dart';
 import 'package:flutter_internal_project_training/screen/widget/sidebar.dart';
@@ -102,6 +103,7 @@ class _MasterCityImportFileState extends State<MasterCityImportFileScreen> {
                                               onDroppedFile: (file) => setState(()=> this.file = file) ,
                                             ),
                                           ),
+                                          DroppedFileWidget(file:file ),
                                         ],
                                       ),
                                     ),
