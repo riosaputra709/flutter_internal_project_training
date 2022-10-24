@@ -11,6 +11,7 @@ import '../../controllers/menu_controller.dart';
 import '../../model/base_list_response.dart';
 import '../../model/city_model_request.dart';
 import '../../model/city_model_response.dart';
+import 'dart:html' as html;
 
 void main() {
   runApp(MasterCity());
@@ -66,7 +67,7 @@ class _MasterCityState extends State<MasterCityScreen> {
     return BlocListener<SampleBloc, SampleState>(
         listener: (context, state) {
           if(state is GetCitiesSuccess) {
-            clearModel();
+            //clearModel();
             arrayCity.clear();
             arrayCity.addAll(state.cities.list_data!);
             baseListResponseModel.page_no = state.cities.page_no;
@@ -121,17 +122,9 @@ class _MasterCityState extends State<MasterCityScreen> {
             bloc.add(SearchCity(cityModelRequest));
           }
           if(state is DownloadCitySuccess) {
-            ScaffoldMessenger.of(context)
-              ..hideCurrentSnackBar()
-              ..showSnackBar(SnackBar(
-                  duration: const Duration(seconds: 5),
-                  content: Text(
-                    "berhasil mendownload data : ${state.message}",
-                    style: const TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                  backgroundColor: Colors.green));
+            if(state.cities.base64Data != null && state.cities.fileName != null){
+              exportExcelForWeb(state.cities.base64Data, state.cities.fileName);
+            }
             clearModel();
             bloc.add(SearchCity(cityModelRequest));
           }
@@ -250,5 +243,24 @@ class _MasterCityState extends State<MasterCityScreen> {
   void clearModel() {
     cityModelRequest.city_code = '';
     cityModelRequest.city_name = '';
+  }
+
+  exportExcelForWeb(String? base64, String? filename) {
+    //Method 1:
+    // launch("data:application/octet-stream;base64,$base64");
+
+    //Method 2:
+
+    final anchor = html.AnchorElement(
+        href:
+        'data:application/octet-stream;charset=utf-16le;base64,$base64')
+    // ..target = 'blank'
+        ;
+    // add the name
+    anchor.download = filename;
+    // trigger download
+    // html1.document.body?.append(anchor);
+    anchor.click();
+    // anchor.remove();
   }
 }

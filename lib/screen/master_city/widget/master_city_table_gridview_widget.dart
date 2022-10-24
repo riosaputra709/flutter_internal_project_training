@@ -26,6 +26,7 @@ class _MasterCityGridviewState extends State<MasterCityTableGridview>  {
   String? fileExtension;
 
   bool isChecked = false;
+  List<String> list = <String>['Download','xlsx', 'csv', 'xls'];
 
   late Map<String, bool> List2 = {
     for(int i = 0; i < widget.model.length; i++)
@@ -34,6 +35,8 @@ class _MasterCityGridviewState extends State<MasterCityTableGridview>  {
 
   @override
   Widget build(BuildContext context) {
+
+    String dropdownValue = list.first;
 
     Color getColor(Set<MaterialState> states) {
       const Set<MaterialState> interactiveStates = <MaterialState>{
@@ -205,7 +208,30 @@ class _MasterCityGridviewState extends State<MasterCityTableGridview>  {
                     SizedBox(
                       width: 8,
                     ),
-                    TextButton(
+                    DropdownButton<String>(
+                      value: dropdownValue,
+                      elevation: 16,
+                      underline: Container(
+                        color: Colors.blue,
+                        height: 2,
+                      ),
+                      onChanged: (String? value) {
+                        // This is called when the user selects an item.
+                        setState(() {
+                          dropdownValue = value!;
+                          if(dropdownValue != 'Download') {
+                            downloadOnPressed(dropdownValue);
+                          }
+                        });
+                      },
+                      items: list.map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    )
+                    /*TextButton(
                       onPressed: (){
                         downloadOnPressed();
                       },
@@ -232,7 +258,7 @@ class _MasterCityGridviewState extends State<MasterCityTableGridview>  {
                           ),
                         ],
                       ),
-                    ),
+                    ),*/
                   ],
                 ),
             ],
@@ -275,34 +301,29 @@ class _MasterCityGridviewState extends State<MasterCityTableGridview>  {
                 SizedBox(
                   width: 8,
                 ),
-                TextButton(
-                  onPressed: (){
-                    downloadOnPressed();
+                DropdownButton<String>(
+                  value: dropdownValue,
+                  elevation: 16,
+                  underline: Container(
+                    color: Colors.blue,
+                    height: 2,
+                  ),
+                  onChanged: (String? value) {
+                    // This is called when the user selects an item.
+                    setState(() {
+                      dropdownValue = value!;
+                      if(dropdownValue != 'Download') {
+                        downloadOnPressed(dropdownValue);
+                      }
+                    });
                   },
-                  style: TextButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                  ),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(2.0),
-                        child: const Text(
-                          "Download",
-                          style: TextStyle(
-                              color: Colors.white
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(2.0),
-                        child: const Icon(
-                          Icons.download,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                  items: list.map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                )
               ],
             ),
 
@@ -572,12 +593,12 @@ class _MasterCityGridviewState extends State<MasterCityTableGridview>  {
     holder_1.clear();
   }
 
-  void downloadOnPressed() {
-    fileExtension = 'xlsx';
+  void downloadOnPressed(String fileExtension) {
     List<String> listCityCode = [];
-    listCityCode.add(widget.model1.city_code.toString());
-
-    bloc.add(DownloadCity(fileExtension!, listCityCode));
+    if(widget.model1.city_code.toString() != null && widget.model1.city_code.toString() != "") {
+      listCityCode.add(widget.model1.city_code.toString());
+    }
+    bloc.add(DownloadCity(fileExtension, listCityCode));
   }
 
 

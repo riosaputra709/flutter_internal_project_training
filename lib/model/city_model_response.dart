@@ -5,9 +5,13 @@ class CityModelResponse {
   String? created_date;
   String? changed_by;
   String? changed_date;
-  bool? is_checked;
 
-  CityModelResponse({this.city_code, this.city_name, this.created_by, this.created_date, this.changed_by, this.changed_date, this.is_checked});
+  //to download
+  String? fileName;
+  String? base64Data;
+
+  CityModelResponse({this.city_code, this.city_name, this.created_by, this.created_date, this.changed_by, this.changed_date
+    ,this.fileName, this.base64Data});
 
   factory CityModelResponse.fromJson(Map<String, dynamic>json){
     return CityModelResponse(city_code: json["cityCode"].toString()
@@ -16,7 +20,7 @@ class CityModelResponse {
       ,created_date: json["createdTime"].toString()
       ,changed_by: json["updateBy"]!=null ? json["updateBy"].toString() :  ''
       ,changed_date: json["updateTime"]!=null ? json["updateTime"].toString() : ''
-      ,is_checked: false);
+    );
   }
 
   factory CityModelResponse.fromJson_AddEditCity(Map<String, dynamic>json){
@@ -37,5 +41,11 @@ class CityModelResponse {
         ,created_date: json["createdTime"]!=null ? json["createdTime"].toString() : ''
         ,changed_by: json["updateBy"]!=null ? json["updateBy"].toString() :  ''
         ,changed_date: json["updateTime"]!=null ? json["updateTime"].toString() : '');
+  }
+
+  factory CityModelResponse.fromJson_DownloadCity(Map<String, dynamic>json){
+    return CityModelResponse(fileName: json["fileName"].toString()
+        ,base64Data: json["base64Data"].toString()
+    );
   }
 }

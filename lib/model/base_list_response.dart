@@ -11,7 +11,8 @@ class BaseListResponse<T> {
   String? status;
   String? message;
 
-  BaseListResponse({this.page_no, this.page_size, this.total_data_in_page, this.total_data, this.total_page, this.list_data});
+  BaseListResponse({this.page_no, this.page_size, this.total_data_in_page, this.total_data, this.total_page, this.list_data,
+    this.status, this.data, this.message});
 
   factory BaseListResponse.fromJson(Map<String, dynamic>json, Function(List<dynamic>)build) {
     return BaseListResponse<T>(
