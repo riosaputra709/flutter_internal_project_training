@@ -2,8 +2,10 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
 
+import '../../../bloc/sample_bloc.dart';
 import '../../../model/file_data_upload.dart';
 
 
@@ -20,11 +22,14 @@ class _DropZoneWidgetState extends State<DropZoneWidget> {
   late DropzoneViewController controller;
   bool highlight = false;
 
+  late SampleBloc bloc;
+
   @override
   Widget build(BuildContext context) {
 
-    return buildDecoration(
+    bloc = BlocProvider.of<SampleBloc>(context);
 
+    return buildDecoration(
         child: Stack(
           children: [
             DropzoneView(
@@ -95,6 +100,7 @@ class _DropZoneWidgetState extends State<DropZoneWidget> {
     widget.onDroppedFile(droppedFile);
     setState(() {
       highlight = false;
+      bloc.add(UploadCity(droppedFile));
     });
   }
 

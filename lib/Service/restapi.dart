@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'api_url.dart';
 import 'net_util.dart';
 
@@ -6,6 +8,12 @@ class RestApi extends UrlAPI {
 
   Future<dynamic> createCity({Map<String, dynamic>? body}) {
     return util.postCity(baseUrl + "/city/add", body:  body,).then((value) {
+      return value;
+    });
+  }
+
+  Future<dynamic> uplCity(String body) {
+    return util.postUploadCity(baseUrl + "/city/upload", body:  body,).then((value) {
       return value;
     });
   }

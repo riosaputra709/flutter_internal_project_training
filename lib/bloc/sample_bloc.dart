@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_internal_project_training/model/city_model_request.dart';
 import 'package:flutter_internal_project_training/model/city_model_response.dart';
+import 'package:flutter_internal_project_training/model/file_data_upload.dart';
 import 'package:meta/meta.dart';
 import '../Service/restapi.dart';
 import '../model/base_list_response.dart';
@@ -39,6 +40,10 @@ class SampleBloc extends Bloc<SampleEvent, SampleState> {
           CityModelResponse? getData = await downloadCity(event.extention, event.cityCd);
           emit(DownloadCitySuccess(getData));
         }
+        else if (event is UploadCity) {
+          BaseListResponse<CityModelResponse>? getData = await uploadCity(event.model);
+          //emit(DownloadCitySuccess(getData));
+        }
       }
       catch (e) {
         emit(SampleErrorState(e.toString()));
@@ -68,6 +73,16 @@ class SampleBloc extends Bloc<SampleEvent, SampleState> {
       return city;
     });
     return baseListResponse;
+  }
+
+  Future<BaseListResponse<CityModelResponse>> uploadCity(File_Data_Model model) async {
+    var response = await api.uplCity(model.url);
+    var baseListResponse = BaseListResponse<CityModelResponse>.fromJson_AddEditCity(response, (data) {
+      List<CityModelResponse> city = data.map((e) => CityModelResponse.fromJson_AddEditCity(e)).toList();
+      return city;
+    });
+    return baseListResponse;
+
   }
 
   Future<BaseListResponse<CityModelResponse>> editCity(CityModelRequest model) async {

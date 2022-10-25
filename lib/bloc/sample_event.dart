@@ -35,3 +35,8 @@ class DownloadCity extends SampleEvent {
   final List<String> cityCd;
   DownloadCity(this.extention, this.cityCd);
 }
+
+class UploadCity extends SampleEvent {
+  final File_Data_Model model;
+  UploadCity(this.model);
+}

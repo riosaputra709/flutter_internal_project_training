@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 
 import '../helper/app_exception.dart';
@@ -58,6 +59,28 @@ class NetworkUtil {
     }
     return await http
         .post(Uri.parse(url), headers: headerJson, body: listBody.toString(), encoding: encoding)
+        .then((http.Response response) => _returnResponse(response));
+  }
+
+  Future<dynamic> postUploadCity(
+      String url, {
+        String? body,
+        Map<String, String>? header,
+        encoding,
+      }) async {
+    Map<String, String> headerJson = {
+      "Accept": "*/*",
+      //"Content-Type": "multipart/form-data",
+    };
+    if(header != null) {
+      headerJson.addAll(header);
+    }
+    Map<String, File> bodyFileJson = {
+      "file": File(body!),
+    };
+
+    return await http
+        .post(Uri.parse(url), headers: headerJson, body: bodyFileJson, encoding: encoding)
         .then((http.Response response) => _returnResponse(response));
   }
 
