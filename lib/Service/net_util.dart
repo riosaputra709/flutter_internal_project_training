@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
 
 import '../helper/app_exception.dart';
 
@@ -64,23 +66,39 @@ class NetworkUtil {
 
   Future<dynamic> postUploadCity(
       String url, {
-        String? body,
+        List<int>? body,
         Map<String, String>? header,
         encoding,
       }) async {
+    var uri = Uri.parse(url);
+    var request = http.MultipartRequest("POST", uri);
+    request.files.add(await http.MultipartFile.fromBytes('file', body!,
+        filename: "upload_city.xlsx"));
+
+    var res = request.send().then((response) {
+      if (response.statusCode == 200) print("Uploaded!");
+    });
+
+    return res;
+
+  }
+
+  Future<dynamic> post(
+      String url, {
+        Map<String, dynamic>? body,
+        Map<String, String>? headers,
+        encoding,
+      }) async {
+    String jsonBody = jsonEncode(body);
     Map<String, String> headerJson = {
       "Accept": "*/*",
-      //"Content-Type": "multipart/form-data",
+      "Content-Type": "application/json",
     };
-    if(header != null) {
-      headerJson.addAll(header);
+    if(headers != null) {
+      headerJson.addAll(headers);
     }
-    Map<String, File> bodyFileJson = {
-      "file": File(body!),
-    };
-
     return await http
-        .post(Uri.parse(url), headers: headerJson, body: bodyFileJson, encoding: encoding)
+        .post(Uri.parse(url), headers: headerJson, body: jsonBody, encoding: encoding)
         .then((http.Response response) => _returnResponse(response));
   }
 
@@ -104,26 +122,6 @@ class NetworkUtil {
         .put(Uri.parse(url), headers: headerJson, body: listBody.toString(), encoding: encoding)
         .then((http.Response response) => _returnResponse(response));
   }
-
-  Future<dynamic> post(
-      String url, {
-        Map<String, dynamic>? body,
-        Map<String, String>? headers,
-        encoding,
-      }) async {
-    String jsonBody = jsonEncode(body);
-    Map<String, String> headerJson = {
-      "Accept": "*/*",
-      "Content-Type": "application/json",
-    };
-    if(headers != null) {
-      headerJson.addAll(headers);
-    }
-    return await http
-        .post(Uri.parse(url), headers: headerJson, body: jsonBody, encoding: encoding)
-        .then((http.Response response) => _returnResponse(response));
-  }
-
 
   Future<dynamic> delete(String url, String param) {
     final JsonDecoder _decoder = new JsonDecoder();

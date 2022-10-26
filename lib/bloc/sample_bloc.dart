@@ -76,7 +76,7 @@ class SampleBloc extends Bloc<SampleEvent, SampleState> {
   }
 
   Future<BaseListResponse<CityModelResponse>> uploadCity(File_Data_Model model) async {
-    var response = await api.uplCity(model.url);
+    var response = await api.uplCity(model.data);
     var baseListResponse = BaseListResponse<CityModelResponse>.fromJson_AddEditCity(response, (data) {
       List<CityModelResponse> city = data.map((e) => CityModelResponse.fromJson_AddEditCity(e)).toList();
       return city;
