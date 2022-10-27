@@ -6,6 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
 
 import '../../../bloc/sample_bloc.dart';
+import '../../../helper/locator.dart';
+import '../../../helper/navigator_service.dart';
 import '../../../model/file_data_upload.dart';
 
 
@@ -103,6 +105,7 @@ class _DropZoneWidgetState extends State<DropZoneWidget> {
     setState(() {
       highlight = false;
       bloc.add(UploadCity(droppedFile));
+      //locator<NavigatorService>().navigateToWithArgmnt("master_city", 1);
     });
   }
 

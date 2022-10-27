@@ -1,11 +1,12 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:flutter_internal_project_training/model/file_data_upload.dart';
+
 import 'api_url.dart';
 import 'net_util.dart';
 
 class RestApi extends UrlAPI {
-  late List<int> _selectedFile;
   NetworkUtil util = NetworkUtil();
 
   Future<dynamic> createCity({Map<String, dynamic>? body}) {
@@ -14,9 +15,8 @@ class RestApi extends UrlAPI {
     });
   }
 
-  Future<dynamic> uplCity(Uint8List body) {
-    _selectedFile = body;
-    return util.postUploadCity(baseUrl + "/city/upload", body:  _selectedFile,).then((value) {
+  Future<dynamic> uplCity(File_Data_Model body) {
+    return util.postUploadCity(baseUrl + "/city/upload", body:  body,).then((value) {
       return value;
     });
   }

@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 
 import '../helper/app_exception.dart';
+import '../model/file_data_upload.dart';
 
 class NetworkUtil {
   static NetworkUtil instance = NetworkUtil.internal();
@@ -66,20 +67,24 @@ class NetworkUtil {
 
   Future<dynamic> postUploadCity(
       String url, {
-        List<int>? body,
+        File_Data_Model? body,
         Map<String, String>? header,
         encoding,
       }) async {
+    final JsonDecoder _decoder = new JsonDecoder();
     var uri = Uri.parse(url);
     var request = http.MultipartRequest("POST", uri);
-    request.files.add(await http.MultipartFile.fromBytes('file', body!,
-        filename: "upload_city.xlsx"));
+    request.files.add(await http.MultipartFile.fromBytes('file', body!.data,
+        filename: body.name));
 
-    var res = request.send().then((response) {
+    /*var res = request.send().then((response) {
       if (response.statusCode == 200) print("Uploaded!");
-    });
+    });*/
 
-    return res;
+    //return res;
+
+    http.Response response = await http.Response.fromStream(await request.send());
+    return _decoder.convert(response.body);
 
   }
 

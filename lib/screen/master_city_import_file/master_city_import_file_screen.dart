@@ -56,6 +56,19 @@ class _MasterCityImportFileState extends State<MasterCityImportFileScreen> {
     bloc = BlocProvider.of<SampleBloc>(context);
     return BlocListener<SampleBloc, SampleState>(
       listener: (context, state) {
+        if(state is CreateCitySuccess) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(SnackBar(
+                duration: const Duration(seconds: 5),
+                content: Text(
+                  "berhasil menyimpan ${state.cities.list_data?.length} data",
+                  style: const TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+                backgroundColor: Colors.green));
+        }
         if (state is SampleErrorState) {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
@@ -74,77 +87,88 @@ class _MasterCityImportFileState extends State<MasterCityImportFileScreen> {
             drawer: SideBar(),
             key: Provider.of<MenuController>(context, listen: false).scaffoldKey,
             backgroundColor: Colors.white,
-            body: Column(
-              children: [
-                Container(
-                  child: HeaderWidget(),
-                ),
-                Expanded(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+            body: BlocBuilder<SampleBloc, SampleState>(
+              builder: (context, state){
+                if(state is SampleLoading) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                else {
+                  return Column(
                     children: [
-                      if (AppResponsive.isDesktop(context))
-                        Expanded(
-                          child: SideBar(),
-                        ),
+                      Container(
+                        child: HeaderWidget(),
+                      ),
                       Expanded(
-                        flex: 5,
-                        child: Container(
-                          //margin: EdgeInsets.all(10),
-                          padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: const Color(0xffe5e5f3),
-                            //borderRadius: BorderRadius.circular(30),
-                          ),
-                          child: Column(
-                            children: [
-                              Container(
-                                  decoration: BoxDecoration(
-                                      color: Colors.white, borderRadius: BorderRadius.circular(14)),
-                                  padding: EdgeInsets.all(6),
-                                  margin: EdgeInsets.only(bottom: 8),
-                                  child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text("Home/ Master/ City/ Import File"),
-                                    ],
-                                  )
-                              ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            if (AppResponsive.isDesktop(context))
                               Expanded(
-                                child: SingleChildScrollView(
-                                  child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Expanded(
-                                        flex: 4,
-                                        child: Container(
-                                          child: Column(
-                                            children: [
-                                              Container(
-                                                height: 500,
-                                                child: DropZoneWidget(
-                                                  onDroppedFile: (file) => setState(()=> this.file = file) ,
+                                child: SideBar(),
+                              ),
+                            Expanded(
+                              flex: 5,
+                              child: Container(
+                                //margin: EdgeInsets.all(10),
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xffe5e5f3),
+                                  //borderRadius: BorderRadius.circular(30),
+                                ),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.white, borderRadius: BorderRadius.circular(14)),
+                                        padding: EdgeInsets.all(6),
+                                        margin: EdgeInsets.only(bottom: 8),
+                                        child: Row(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text("Home/ Master/ City/ Import File"),
+                                          ],
+                                        )
+                                    ),
+                                    Expanded(
+                                      child: SingleChildScrollView(
+                                        child: Row(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Expanded(
+                                              flex: 4,
+                                              child: Container(
+                                                child: Column(
+                                                  children: [
+                                                    Container(
+                                                      height: 500,
+                                                      child: DropZoneWidget(
+                                                        onDroppedFile: (file) => setState(()=> this.file = file) ,
+                                                      ),
+                                                    ),
+                                                    //DroppedFileWidget(file:file ),
+                                                  ],
                                                 ),
                                               ),
-                                              //DroppedFileWidget(file:file ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+
+
+                          ],
                         ),
-                      ),
-
-
+                      )
                     ],
-                  ),
-                )
-              ],
+                  );
+                }
+              },
             )
         ),
     );

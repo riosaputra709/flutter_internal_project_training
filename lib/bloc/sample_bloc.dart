@@ -42,7 +42,7 @@ class SampleBloc extends Bloc<SampleEvent, SampleState> {
         }
         else if (event is UploadCity) {
           BaseListResponse<CityModelResponse>? getData = await uploadCity(event.model);
-          //emit(DownloadCitySuccess(getData));
+          emit(CreateCitySuccess(getData));
         }
       }
       catch (e) {
@@ -76,7 +76,7 @@ class SampleBloc extends Bloc<SampleEvent, SampleState> {
   }
 
   Future<BaseListResponse<CityModelResponse>> uploadCity(File_Data_Model model) async {
-    var response = await api.uplCity(model.data);
+    var response = await api.uplCity(model);
     var baseListResponse = BaseListResponse<CityModelResponse>.fromJson_AddEditCity(response, (data) {
       List<CityModelResponse> city = data.map((e) => CityModelResponse.fromJson_AddEditCity(e)).toList();
       return city;
