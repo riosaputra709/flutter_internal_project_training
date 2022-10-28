@@ -56,6 +56,10 @@ class SampleBloc extends Bloc<SampleEvent, SampleState> {
       body: modelRequest.toMap()
     )as Map<String, dynamic>;
     var res = response["data"];
+    var status = response["status"];
+    if (status == "error") {
+      throw (response["message"]);
+    }
     var baseListResponse = BaseListResponse<CityModelResponse>.fromJson(res, (data) {
       List<CityModelResponse> city = data.map((e) => CityModelResponse.fromJson(e)).toList();
       return city;
@@ -68,6 +72,10 @@ class SampleBloc extends Bloc<SampleEvent, SampleState> {
     var response = await api.createCity(
       body: model.toMapCreateCity(), //kirim ke API
     ) as Map<String, dynamic>;
+    var status = response["status"];
+    if (status == "error") {
+      throw (response["message"]);
+    }
     var baseListResponse = BaseListResponse<CityModelResponse>.fromJson_AddEditCity(response, (data) {
       List<CityModelResponse> city = data.map((e) => CityModelResponse.fromJson_AddEditCity(e)).toList();
       return city;
@@ -77,6 +85,10 @@ class SampleBloc extends Bloc<SampleEvent, SampleState> {
 
   Future<BaseListResponse<CityModelResponse>> uploadCity(File_Data_Model model) async {
     var response = await api.uplCity(model);
+    var status = response["status"];
+    if (status == "error") {
+      throw (response["message"]);
+    }
     var baseListResponse = BaseListResponse<CityModelResponse>.fromJson_AddEditCity(response, (data) {
       List<CityModelResponse> city = data.map((e) => CityModelResponse.fromJson_AddEditCity(e)).toList();
       return city;
@@ -89,6 +101,10 @@ class SampleBloc extends Bloc<SampleEvent, SampleState> {
     var response = await api.editCity(
       body: model.toMapCreateCity(), //kirim ke API
     ) as Map<String, dynamic>;
+    var status = response["status"];
+    if (status == "error") {
+      throw (response["message"]);
+    }
     var baseListResponse = BaseListResponse<CityModelResponse>.fromJson_AddEditCity(response, (data) {
       List<CityModelResponse> city = data.map((e) => CityModelResponse.fromJson_AddEditCity(e)).toList();
       return city;
@@ -98,6 +114,10 @@ class SampleBloc extends Bloc<SampleEvent, SampleState> {
 
   Future<BaseListResponse<CityModelResponse>> deleteCity(String cityCode) async {
     dynamic response = await api.deleteCity(cityCode);
+    var status = response["status"];
+    if (status == "error") {
+      throw (response["message"]);
+    }
     var baseListResponse = BaseListResponse<CityModelResponse>.fromJson_DeleteCity(response, (data) {
       List<CityModelResponse> city = data.map((e) => CityModelResponse.fromJson_DeleteCity(e)).toList();
       return city;
@@ -107,6 +127,10 @@ class SampleBloc extends Bloc<SampleEvent, SampleState> {
 
   Future<String?> deleteCity1(String cityCode) async {
     var response = await api.deleteCity(cityCode);
+    var status = response["status"];
+    if (status == "error") {
+      throw (response["message"]);
+    }
     BaseListResponse bsr = BaseListResponse.map(response); //terima response dari API
 
     return bsr.message;
@@ -118,6 +142,10 @@ class SampleBloc extends Bloc<SampleEvent, SampleState> {
       body: toMapDownloadCity(extension, cc), //kirim ke API
     ) as Map<String, dynamic>; //terima response dari API
     var resData = response["data"];
+    var status = response["status"];
+    if (status == "error") {
+      throw (response["message"]);
+    }
     CityModelResponse newCity = CityModelResponse.fromJson_DownloadCity(resData);
     return newCity;
 

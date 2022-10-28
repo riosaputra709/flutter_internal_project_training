@@ -18,6 +18,9 @@ class _MasterCitySearchCriteriaState extends State<MasterCitySearchCriteria>  {
   static GlobalKey<FormState> key = GlobalKey<FormState>();
   late SampleBloc bloc;
 
+  final fieldTextCn = TextEditingController();
+  final fieldTextCc = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     widget.cityReq.page_size = widget.baseListResponseModel.page_size;
@@ -53,37 +56,41 @@ class _MasterCitySearchCriteriaState extends State<MasterCitySearchCriteria>  {
                           SizedBox(
                             height: 10.0,
                           ),
-                          TextFormField(
-                            style: const TextStyle(color: Colors.black, fontSize: 15),
-                            decoration: InputDecoration(
-                              errorStyle: const TextStyle(fontSize: 12, color: Colors.red),
-                              hintText: "Input Text",
-                              hintStyle: const TextStyle(fontSize: 15, color: Colors.grey),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(2),
-                                borderSide: const BorderSide(color: const Color(
-                                    0xffcbcbe1)),
+                          SizedBox(
+                            height: 40,
+                            child: TextFormField(
+                              style: const TextStyle(color: Colors.black, fontSize: 15),
+                              decoration: InputDecoration(
+                                errorStyle: const TextStyle(fontSize: 12, color: Colors.red),
+                                hintText: "Input Text",
+                                hintStyle: const TextStyle(fontSize: 12, color: Colors.grey),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(2),
+                                  borderSide: const BorderSide(color: const Color(
+                                      0xffcbcbe1)),
+                                ),
+                                disabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(2),
+                                  borderSide: const BorderSide(color: Colors.grey),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(2),
+                                  borderSide: const BorderSide(color: Colors.blue, width: 1.8),
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(2),
+                                  borderSide: const BorderSide(color: Colors.red),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(2),
+                                  borderSide: const BorderSide(color: Colors.red, width: 1.8),
+                                ),
                               ),
-                              disabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(2),
-                                borderSide: const BorderSide(color: Colors.grey),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(2),
-                                borderSide: const BorderSide(color: Colors.blue, width: 1.8),
-                              ),
-                              errorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(2),
-                                borderSide: const BorderSide(color: Colors.red),
-                              ),
-                              focusedErrorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(2),
-                                borderSide: const BorderSide(color: Colors.red, width: 1.8),
-                              ),
+                              onChanged: (value) {
+                                widget.cityReq.city_code = value;
+                              },
+                              controller: fieldTextCc,
                             ),
-                            onChanged: (value) {
-                              widget.cityReq.city_code = value;
-                            },
                           ),
                         ],
                       ),
@@ -107,37 +114,41 @@ class _MasterCitySearchCriteriaState extends State<MasterCitySearchCriteria>  {
                           SizedBox(
                             height: 10.0,
                           ),
-                          TextFormField(
-                            style: const TextStyle(color: Colors.black, fontSize: 15),
-                            decoration: InputDecoration(
-                              errorStyle: const TextStyle(fontSize: 12, color: Colors.red),
-                              hintText: "Input Text",
-                              hintStyle: const TextStyle(fontSize: 15, color: Colors.grey),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(2),
-                                borderSide: const BorderSide(color: const Color(
-                                    0xffcbcbe1)),
+                          SizedBox(
+                            height: 40,
+                            child: TextFormField(
+                              style: const TextStyle(color: Colors.black, fontSize: 15),
+                              decoration: InputDecoration(
+                                errorStyle: const TextStyle(fontSize: 12, color: Colors.red),
+                                hintText: "Input Text",
+                                hintStyle: const TextStyle(fontSize: 12, color: Colors.grey),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(2),
+                                  borderSide: const BorderSide(color: const Color(
+                                      0xffcbcbe1)),
+                                ),
+                                disabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(2),
+                                  borderSide: const BorderSide(color: Colors.grey),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(2),
+                                  borderSide: const BorderSide(color: Colors.blue, width: 1.8),
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(2),
+                                  borderSide: const BorderSide(color: Colors.red),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(2),
+                                  borderSide: const BorderSide(color: Colors.red, width: 1.8),
+                                ),
                               ),
-                              disabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(2),
-                                borderSide: const BorderSide(color: Colors.grey),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(2),
-                                borderSide: const BorderSide(color: Colors.blue, width: 1.8),
-                              ),
-                              errorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(2),
-                                borderSide: const BorderSide(color: Colors.red),
-                              ),
-                              focusedErrorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(2),
-                                borderSide: const BorderSide(color: Colors.red, width: 1.8),
-                              ),
+                              onChanged: (value) {
+                                widget.cityReq.city_name = value;
+                              },
+                              controller: fieldTextCn,
                             ),
-                            onChanged: (value) {
-                              widget.cityReq.city_name = value;
-                            },
                           ),
                         ],
                       ),
@@ -184,8 +195,7 @@ class _MasterCitySearchCriteriaState extends State<MasterCitySearchCriteria>  {
                             ),
 
                             TextButton(
-                              onPressed: (){
-                              },
+                              onPressed: clearText,
                               style: TextButton.styleFrom(
                                 backgroundColor: Colors.blue,
                               ),
@@ -222,4 +232,12 @@ class _MasterCitySearchCriteriaState extends State<MasterCitySearchCriteria>  {
       ),
     );
   }
+
+  void clearText() {
+    fieldTextCc.clear();
+    widget.cityReq.city_name = '';
+    fieldTextCn.clear();
+    widget.cityReq.city_code = '';
+  }
+
 }

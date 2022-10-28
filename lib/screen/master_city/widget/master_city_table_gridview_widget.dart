@@ -603,7 +603,7 @@ class _MasterCityGridviewState extends State<MasterCityTableGridview>  {
 
   void downloadOnPressed(String fileExtension) {
     List<String> listCityCode = [];
-    if(widget.model1.city_code.toString() != null && widget.model1.city_code.toString() != "") {
+    if(widget.model1.city_code != null && widget.model1.city_code.toString() != "") {
       listCityCode.add(widget.model1.city_code.toString());
     }
     bloc.add(DownloadCity(fileExtension, listCityCode));
