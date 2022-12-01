@@ -40,6 +40,13 @@ class _SideBarState extends State<SideBar> {
                         locator<NavigatorService>().navigateToWithArgmnt("master_city", 1);
                       },
                     ),
+                    DrawerListTile(
+                      title: "Student",
+                      icon: "",
+                      press: () {
+                        locator<NavigatorService>().navigateToWithArgmnt("master_student", 1);
+                      },
+                    ),
                   ],
               )
             ],

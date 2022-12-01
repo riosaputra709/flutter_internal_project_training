@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_internal_project_training/main.dart';
 import 'package:flutter_internal_project_training/screen/master_city/master_city_screen.dart';
 import 'package:flutter_internal_project_training/screen/master_parameter/master_parameter_screen.dart';
+import 'package:flutter_internal_project_training/screen/master_student/master_student_screen.dart';
 
 import '../screen/master_city_import_file/master_city_import_file_screen.dart';
 import '../screen/master_paramater_add/master_parameter_add_screen.dart';
@@ -20,6 +20,8 @@ class Routegenerator {
         return MaterialPageRoute(builder: (_) => MasterCity());
       case "master_city_import_file":
         return MaterialPageRoute(builder: (_) => MasterCityImportFile());
+      case "master_student":
+        return MaterialPageRoute(builder: (_) => MasterStudent());
       default:
         return _errorRoute();
     }
