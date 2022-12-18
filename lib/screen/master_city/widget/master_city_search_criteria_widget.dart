@@ -18,8 +18,8 @@ class _MasterCitySearchCriteriaState extends State<MasterCitySearchCriteria>  {
   static GlobalKey<FormState> key = GlobalKey<FormState>();
   late SampleBloc bloc;
 
-  final fieldTextCn = TextEditingController();
-  final fieldTextCc = TextEditingController();
+  //final fieldTextCn = TextEditingController();
+  //final fieldTextCc = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +59,7 @@ class _MasterCitySearchCriteriaState extends State<MasterCitySearchCriteria>  {
                           SizedBox(
                             height: 40,
                             child: TextFormField(
+                              initialValue: widget.cityReq.city_code == null ? "": widget.cityReq.city_code,
                               style: const TextStyle(color: Colors.black, fontSize: 15),
                               decoration: InputDecoration(
                                 errorStyle: const TextStyle(fontSize: 12, color: Colors.red),
@@ -89,7 +90,7 @@ class _MasterCitySearchCriteriaState extends State<MasterCitySearchCriteria>  {
                               onChanged: (value) {
                                 widget.cityReq.city_code = value;
                               },
-                              controller: fieldTextCc,
+                              //controller: fieldTextCc,
                             ),
                           ),
                         ],
@@ -117,6 +118,7 @@ class _MasterCitySearchCriteriaState extends State<MasterCitySearchCriteria>  {
                           SizedBox(
                             height: 40,
                             child: TextFormField(
+                              initialValue: widget.cityReq.city_name == null ? "": widget.cityReq.city_name,
                               style: const TextStyle(color: Colors.black, fontSize: 15),
                               decoration: InputDecoration(
                                 errorStyle: const TextStyle(fontSize: 12, color: Colors.red),
@@ -147,7 +149,7 @@ class _MasterCitySearchCriteriaState extends State<MasterCitySearchCriteria>  {
                               onChanged: (value) {
                                 widget.cityReq.city_name = value;
                               },
-                              controller: fieldTextCn,
+                              //controller: fieldTextCn,
                             ),
                           ),
                         ],
@@ -234,10 +236,11 @@ class _MasterCitySearchCriteriaState extends State<MasterCitySearchCriteria>  {
   }
 
   void clearText() {
-    fieldTextCc.clear();
+    //fieldTextCc.clear();
     widget.cityReq.city_name = '';
-    fieldTextCn.clear();
+    //fieldTextCn.clear();
     widget.cityReq.city_code = '';
+    bloc.add(SearchCity(widget.cityReq));
   }
 
 }

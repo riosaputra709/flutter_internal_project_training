@@ -36,6 +36,7 @@ class _MasterCityGridviewState extends State<MasterCityTableGridview>  {
   @override
   Widget build(BuildContext context) {
 
+    //print(List2);
     String dropdownValue = list.first;
 
     Color getColor(Set<MaterialState> states) {

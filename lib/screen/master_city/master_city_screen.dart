@@ -75,6 +75,7 @@ class _MasterCityState extends State<MasterCityScreen> {
             baseListResponseModel.total_data_in_page = state.cities.total_data_in_page;
             baseListResponseModel.total_data = state.cities.total_data;
             baseListResponseModel.total_page = state.cities.total_page;
+            //print("aaaaaaa" + arrayCity[0].city_code.toString());
           }
           if(state is CreateCitySuccess) {
             ScaffoldMessenger.of(context)
