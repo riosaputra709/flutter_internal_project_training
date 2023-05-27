@@ -28,7 +28,7 @@ class MasterCity extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (context) => MenuController()),
+          ChangeNotifierProvider(create: (context) => Menu1Controller()),
         ],
         child: BlocProvider<SampleBloc>(
           create: (context) => SampleBloc(),
@@ -149,7 +149,7 @@ class _MasterCityState extends State<MasterCityScreen> {
         ),*/
             drawer: SideBar(),
             key: Provider
-                .of<MenuController>(context, listen: false)
+                .of<Menu1Controller>(context, listen: false)
                 .scaffoldKey,
             backgroundColor: Colors.white,
             body:

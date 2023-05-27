@@ -22,7 +22,7 @@ class OptionDialogAddCity extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (context) => MenuController()),
+          ChangeNotifierProvider(create: (context) => Menu1Controller()),
         ],
         child: BlocProvider<SampleBloc>(
             create: (context) => SampleBloc(),

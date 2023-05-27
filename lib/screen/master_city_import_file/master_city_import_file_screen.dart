@@ -28,7 +28,7 @@ class MasterCityImportFile extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (context) => MenuController()),
+          ChangeNotifierProvider(create: (context) => Menu1Controller()),
         ],
         child: BlocProvider<SampleBloc>(
           create: (context) => SampleBloc(),
@@ -85,7 +85,7 @@ class _MasterCityImportFileState extends State<MasterCityImportFileScreen> {
       },
       child: Scaffold(
             drawer: SideBar(),
-            key: Provider.of<MenuController>(context, listen: false).scaffoldKey,
+            key: Provider.of<Menu1Controller>(context, listen: false).scaffoldKey,
             backgroundColor: Colors.white,
             body: BlocBuilder<SampleBloc, SampleState>(
               builder: (context, state){

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class MenuController extends ChangeNotifier{
+class Menu1Controller extends ChangeNotifier{
   final GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
 
   GlobalKey<ScaffoldState> get scaffoldKey => _globalKey;

@@ -25,7 +25,7 @@ class MasterStudent extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (context) => MenuController()),
+          ChangeNotifierProvider(create: (context) => Menu1Controller()),
         ],
         child: const MasterStudentScreen(title: 'Master Student Screen',),
       ),
@@ -59,7 +59,7 @@ class _MasterStudentState extends State<MasterStudentScreen> {
     return Scaffold(
         drawer: SideBar(),
         key: Provider
-            .of<MenuController>(context, listen: false)
+            .of<Menu1Controller>(context, listen: false)
             .scaffoldKey,
         backgroundColor: Colors.white,
         body: Column(

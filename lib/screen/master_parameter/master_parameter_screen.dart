@@ -29,7 +29,7 @@ class MasterParameter extends StatelessWidget {
           textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)),*/
       home: MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (context) => MenuController()),
+          ChangeNotifierProvider(create: (context) => Menu1Controller()),
         ],
         child: MasterParameterScreen(title: 'Master Parameter Screen',),
       ),
@@ -54,7 +54,7 @@ class _MasterParameterState extends State<MasterParameterScreen> {
           title: HeaderWidget(),
         ),*/
         drawer: SideBar(),
-        key: Provider.of<MenuController>(context, listen: false).scaffoldKey,
+        key: Provider.of<Menu1Controller>(context, listen: false).scaffoldKey,
         backgroundColor: Colors.white,
         body: Column(
           children: [
